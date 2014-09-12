@@ -1,0 +1,987 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Grocery Cart!</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="~/css/bootstrap.css" rel="stylesheet"/>
+  <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+
+  <!-- Include jQuery Popup Overlay -->
+  <script src="http://vast-engineering.github.io/jquery-popup-overlay/jquery.popupoverlay.js"></script>        
+  
+<style type="text/css">
+
+
+    #paddit {
+        margin-left:20px;
+    }
+
+    .tableborder1 {
+        background-color: #f5fffa;
+        padding: 10px;
+        height: 150px;
+        width: 960px;
+        float: left;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+    }
+
+    .tableborder2 {
+        background-color: #f5fffa;
+        padding: 10px;
+        margin-top: 10px;
+        height: auto;
+        width: 450px;
+        float: left;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+    }
+
+    .tableborder3 {
+        background-color: #f5fffa;
+        padding: 10px;
+        margin-top: 10px;
+        height: auto;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        float:right;
+        width:500px;
+    }
+    .li {
+       text-indent:10px;
+    }
+
+
+    .section {
+        width: 960px;
+    } 
+     .auto-style14 {
+        width: 100%;
+        height: 12px;
+        text-align:center;
+    }
+    
+    .auto-style144 {
+        width: 100%;
+        height:50px;
+        text-align:center;
+    }
+    .auto-style16 {
+        width: 428px;
+    }
+
+    .auto-style17 {
+        width: 200px;
+        
+    }
+    
+    .auto-style21{
+        width: 500px;
+    }
+    .auto-style22{
+        margin-left:150px;
+    }
+    
+    
+    #Grocery {
+        font-size: 40px;
+         font-family: 'Ubuntu', serif;
+color: red;
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de, 0 0 80px #ff00de, 0 0 100px #ff00de, 0 0 150px #ff00de;
+
+    }
+    #Grocery1 {
+        margin-left: 30px;
+        text-align: center;
+        font-size: 24px;
+         font-family: 'Ubuntu', serif;
+color: red;
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de, 0 0 80px #ff00de, 0 0 100px #ff00de, 0 0 150px #ff00de;
+
+    }
+    
+ .my_popup{
+  position:absolute;
+  width:auto;
+  height:auto;
+  background:#fff;
+  left:50%;
+  top:50%;
+  
+  border-radius:5px;
+  padding:60px 0;
+  margin-left:-1720px; /* width/2 + padding-left */
+  margin-top:-750px; /* height/2 + padding-top */
+  text-align:center;
+  box-shadow:0 0 10px 0 #000;
+ }
+ 
+
+
+#SubmitButton{
+    width:300px;
+    right: 230px;
+}
+
+#Reciept li{
+        
+     list-style: none;
+     text-decoration: none;
+     font-size: 12px;
+     font-family: ‘Arial Black’, Gadget, sans-serif;
+     }
+
+     #Lister li{
+        
+     list-style: none;
+     text-decoration: none;
+     font-size: 12px;
+     font-family: ‘Arial Black’, Gadget, sans-serif;
+     }
+</style>
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+  
+ $('#BuyApple').popup();
+ $('#BuyOrange').popup();
+ $('#BuyStrawberry').popup();
+ $('#BuyCarrot').popup();
+ $('#BuyBanana').popup();
+
+
+  
+});
+ 
+  //chiusura al click sul pulsante
+  
+  var RulesAP = [];
+  var RulesOR = [];
+  var RulesBA = [];
+  var RulesCA = [];
+  var RulesST = [];
+    
+    var apple = 0.25;
+    var orange = 0.35;
+    var banana = 0.15;
+    var strawberry = 0.50;
+    var carrot = 0.10;
+    
+    var TOTap = 0;
+    var TOTor = 0;
+    var TOTba = 0;
+    var TOTst = 0;
+    var TOTca = 0;
+    
+    var TOTapTEMP = 0;
+    var TOTorTEMP = 0;
+    var TOTbaTEMP = 0;
+    var TOTstTEMP = 0;
+    var TOTcaTEMP = 0;
+    
+    
+    var COSTap = 0;
+    var COSTor = 0;
+    var COSTba = 0;
+    var COSTst = 0;
+    var COSTca = 0;
+    
+    var startStop = 0;
+   function SetAPP(){
+       
+       var newVal = parseInt(document.getElementById('Apples').value);
+       var newVal1 = parseInt(TOTapTEMP);
+       TOTap = newVal + newVal1;
+       TOTapTEMP = TOTap
+       
+       var ul = document.getElementById("Lister");
+var li = document.createElement("li");
+li.appendChild(document.createTextNode(" Apples  -  " + newVal));
+ul.appendChild(li);
+       
+       $('#BuyApple').popup('hide');
+   }
+   function SetORA(){
+         var newVal = parseInt(document.getElementById('Oranges').value);
+       var newVal1 = parseInt(TOTorTEMP);
+       TOTor = newVal + newVal1;
+       TOTorTEMP = TOTor;
+       
+       var ul = document.getElementById("Lister");
+var li = document.createElement("li");
+li.appendChild(document.createTextNode(" Oranges  -  " + newVal));
+ul.appendChild(li);
+       
+       $('#BuyOrange').popup('hide');
+   }
+   function SetBAN(){
+         var newVal = parseInt(document.getElementById('Bananas').value);
+       var newVal1 = parseInt(TOTbaTEMP);
+       TOTba = newVal + newVal1;
+       TOTbaTEMP = TOTba;
+       
+       var ul = document.getElementById("Lister");
+var li = document.createElement("li");
+li.appendChild(document.createTextNode(" Bananas  -  " + newVal));
+ul.appendChild(li);
+       $('#BuyBanana').popup('hide');
+   }
+   function SetSTR(){
+         var newVal = parseInt(document.getElementById('Strawberrys').value);
+       var newVal1 = parseInt(TOTstTEMP);
+       TOTst = newVal + newVal1;
+       TOTstTEMP = TOTst;
+       var ul = document.getElementById("Lister");
+var li = document.createElement("li");
+li.appendChild(document.createTextNode(" Strawberrys  -  " + newVal));
+ul.appendChild(li);
+       
+       $('#BuyStrawberry').popup('hide');
+   }
+   function SetCAR(){
+         var newVal = parseInt(document.getElementById('Carrots').value);
+       var newVal1 = parseInt(TOTcaTEMP);
+       TOTca = newVal + newVal1;
+       TOTcaTEMP = TOTca;
+       var ul = document.getElementById("Lister");
+var li = document.createElement("li");
+li.appendChild(document.createTextNode(" Carrots  -  " + newVal));
+ul.appendChild(li);
+       
+       $('#BuyCarrot').popup('hide');
+   }
+   
+   function BuyApple(){
+     $('#BuyApple').popup('show');  
+   }
+   function BuyOrange(){
+     $('#BuyOrange').popup('show');  
+   }
+   function BuyBanana(){
+     $('#BuyBanana').popup('show');  
+   }
+   function BuyStrawberry(){
+     $('#BuyStrawberry').popup('show');  
+   }
+   function BuyCarrot(){
+     $('#BuyCarrot').popup('show');  
+   }
+    
+    function RuleApple(){
+        $('#SetApple').popup('show');
+    }
+    function RuleOrange(){
+        $('#SetOrange').popup('show');
+    }
+    function RuleBanana(){
+        $('#SetBanana').popup('show');
+    }
+    function RuleStrawberry(){
+        $('#SetStrawberry').popup('show');
+    }
+    function RuleCarrot(){
+        $('#SetCarrot').popup('show');
+    }
+    
+    function RuleAP(){
+        var qtty = parseInt((document.getElementById('QtyAp').value));
+        var prix = parseFloat((document.getElementById('PriceAp').value));
+        RulesAP[qtty]=(qtty + '$' + prix);
+        $('#SetApple').popup('hide');
+    }
+     function RuleOR(){
+        var qtty = parseInt((document.getElementById('QtyOr').value));
+        var prix = parseFloat((document.getElementById('PriceOr').value));
+        RulesOR[qtty]=(qtty + '$' + prix);
+        $('#SetOrange').popup('hide');
+    }
+     function RuleBA(){
+        var qtty = parseInt((document.getElementById('QtyBa').value));
+        var prix = parseFloat((document.getElementById('PriceBa').value));
+        RulesBA[qtty] = (qtty + '$' + prix);
+        $('#SetBanana').popup('hide');
+    }
+     function RuleST(){
+        var qtty = parseInt((document.getElementById('QtySt').value));
+        var prix = parseFloat((document.getElementById('PriceSt').value));
+        RulesST[qtty]=(qtty + '$' + prix);
+        $('#SetStrawberry').popup('hide');
+    }
+     function RuleCA(){
+        var qtty = parseInt((document.getElementById('QtyCa').value));
+        var prix = parseFloat((document.getElementById('PriceCa').value));
+        RulesCA[qtty]=(qtty + '$' + prix);
+        $('#SetCarrot').popup('hide');
+        
+    }
+    
+    function ComputeTotal(){
+        
+        COSTap = 0;
+        COSTor = 0;
+        COSTba = 0;
+        COSTst = 0;
+        COSTca = 0;
+        
+        
+        var ul = document.getElementById("Reciept");
+ul.innerHTML = "";
+RulesAP.reverse();
+TOTap = TOTapTEMP;
+   if (parseInt(TOTap) > 0){
+        for (var i = 0; i<RulesAP.length; i++)
+        {
+        
+        if ((RulesAP[i] !== null) &&(RulesAP[i] !== undefined) && (RulesAP[i] !== ''))    
+          {
+            var splitter = [];
+        splitter = RulesAP[i].split("$");
+          
+          var qttySplit = parseInt(splitter[0]);
+          var prixSplit = parseFloat(splitter[1]);
+          
+          var wholes = parseInt(TOTap/qttySplit);
+          
+          var remains = parseInt(TOTap%qttySplit);
+          
+          TOTap=remains;
+          var total = (wholes * prixSplit);
+          COSTap += total;
+          
+          var ul = document.getElementById("Reciept");
+var li = document.createElement("li");
+li.appendChild(document.createTextNode(wholes + " Bundles OF: " +qttySplit +" Apples AT :$" + prixSplit + " = $" + total));
+ul.appendChild(li);
+
+                  }
+     
+    }
+    if (parseInt(TOTap) > 0)
+    {     
+        var total = TOTap * apple;
+COSTap += total;
+ var ul = document.getElementById("Reciept");
+var li = document.createElement("li");
+li.appendChild(document.createTextNode(TOTap + " Apple(s) At: " + apple + " = $" + total));
+ul.appendChild(li);
+ 
+    }
+   }
+  RulesAP.reverse();
+    ComputeTotalOR();
+    }
+    
+    function ComputeTotalOR(){
+    RulesOR.reverse();
+   TOTor = TOTorTEMP;
+   if (parseInt(TOTor) > 0){
+        for (var i = 0; i<RulesOR.length; i++)
+        {
+        
+        if ((RulesOR[i] !== null) &&(RulesOR[i] !== undefined) && (RulesOR[i] !== ''))    
+          {
+            var splitter = [];
+        splitter = RulesOR[i].split("$");
+          
+          var qttySplit = parseInt(splitter[0]);
+          var prixSplit = parseFloat(splitter[1]);
+          
+          var wholes = parseInt(TOTor/qttySplit);
+          
+          var remains = parseInt(TOTor%qttySplit);
+          TOTor=remains;
+          var total = (wholes * prixSplit);
+          COSTor += total;
+          
+          var ul = document.getElementById("Reciept");
+var li = document.createElement("li");
+li.appendChild(document.createTextNode(wholes + " Bundles OF: " +qttySplit +" Oranges AT :$" + prixSplit + " = $" + total));
+ul.appendChild(li);
+
+                  }
+     
+    }
+    if (parseInt(TOTor) > 0)
+    {     
+        var total = TOTor * orange;
+COSTor += total;
+ var ul = document.getElementById("Reciept");
+var li = document.createElement("li");
+li.appendChild(document.createTextNode(TOTor + " Orange(s) At: " + orange + " = $" + total));
+ul.appendChild(li);
+ 
+    }
+   }
+   RulesOR.reverse();
+    ComputeTotalBA();
+    }
+    
+    function ComputeTotalBA(){
+    RulesBA.reverse();
+   TOTba = TOTbaTEMP;
+   if (parseInt(TOTba) > 0){
+        for (var i = 0; i<RulesBA.length; i++)
+        {
+        
+        if ((RulesBA[i] !== null) &&(RulesBA[i] !== undefined) && (RulesBA[i] !== ''))    
+          {
+            var splitter = [];
+        splitter = RulesBA[i].split("$");
+          
+          var qttySplit = parseInt(splitter[0]);
+          var prixSplit = parseFloat(splitter[1]);
+          
+          var wholes = parseInt(TOTba/qttySplit);
+          
+          var remains = parseInt(TOTba%qttySplit);
+          TOTba=remains;
+          var total = (wholes * prixSplit);
+          COSTor += total;
+          
+          var ul = document.getElementById("Reciept");
+var li = document.createElement("li");
+li.appendChild(document.createTextNode(wholes + " Bundles OF: " +qttySplit +" Bananas AT :$" + prixSplit + " = $" + total));
+ul.appendChild(li);
+
+                  }
+     
+    }
+    if (parseInt(TOTba) > 0)
+    {     
+        var total = TOTba * banana;
+COSTba += total;
+ var ul = document.getElementById("Reciept");
+var li = document.createElement("li");
+li.appendChild(document.createTextNode(TOTba + " Banana(s) At: " + banana + " = $" + total));
+ul.appendChild(li);
+ 
+    }
+   }
+   RulesBA.reverse();
+    ComputeTotalST();
+    }
+    
+     function ComputeTotalST(){
+    RulesST.reverse();
+   TOTst = TOTstTEMP;
+   if (parseInt(TOTst) > 0){
+        for (var i = 0; i<RulesST.length; i++)
+        {
+        
+        if ((RulesST[i] !== null) &&(RulesST[i] !== undefined) && (RulesST[i] !== ''))    
+          {
+            var splitter = [];
+        splitter = RulesST[i].split("$");
+          
+          var qttySplit = parseInt(splitter[0]);
+          var prixSplit = parseFloat(splitter[1]);
+          
+          var wholes = parseInt(TOTst/qttySplit);
+          
+          var remains = parseInt(TOTst%qttySplit);
+          TOTst=remains;
+          var total = (wholes * prixSplit);
+          COSTst += total;
+          
+          var ul = document.getElementById("Reciept");
+var li = document.createElement("li");
+li.appendChild(document.createTextNode(wholes + " Bundles OF: " +qttySplit +" Strawberrys AT :$" + prixSplit + " = $" + total));
+ul.appendChild(li);
+
+                  }
+     
+    }
+    if (parseInt(TOTst) > 0)
+    {     
+        var total = TOTst * strawberry;
+COSTst += total;
+ var ul = document.getElementById("Reciept");
+var li = document.createElement("li");
+li.appendChild(document.createTextNode(TOTst + " Strawberrys(s) At: " + strawberry + " = $" + total));
+ul.appendChild(li);
+ 
+    }
+   }
+   RulesST.reverse();
+    ComputeTotalCA();
+    }
+    
+  function ComputeTotalCA(){
+    RulesCA.reverse();
+   TOTca = TOTcaTEMP;
+   if (parseInt(TOTca) > 0){
+        for (var i = 0; i<RulesCA.length; i++)
+        {
+        
+        if ((RulesCA[i] !== null) &&(RulesCA[i] !== undefined) && (RulesCA[i] !== ''))    
+          {
+            var splitter = [];
+        splitter = RulesCA[i].split("$");
+          
+          var qttySplit = parseInt(splitter[0]);
+          var prixSplit = parseFloat(splitter[1]);
+          
+          var wholes = parseInt(TOTca/qttySplit);
+          
+          var remains = parseInt(TOTca%qttySplit);
+          TOTca=remains;
+          var total = (wholes * prixSplit);
+          COSTca += total;
+          
+          var ul = document.getElementById("Reciept");
+var li = document.createElement("li");
+li.appendChild(document.createTextNode(wholes + " Bundles OF: " +qttySplit +" Carrots AT :$" + prixSplit + " = $" + total));
+ul.appendChild(li);
+
+                  }
+     
+    }
+    if (parseInt(TOTca) > 0)
+    {     
+        var total = TOTca * carrot;
+COSTca += total;
+ var ul = document.getElementById("Reciept");
+var li = document.createElement("li");
+li.appendChild(document.createTextNode(TOTca + " Carrots(s) At: " + carrot + " = $" + total));
+ul.appendChild(li);
+ 
+    }
+   }
+    RulesCA.reverse();
+    
+    var ul = document.getElementById("Reciept");
+var li = document.createElement("li");
+li.appendChild(document.createTextNode("--------------------------------"));
+ul.appendChild(li);
+
+var c1 = parseFloat(COSTap);
+var c2 = parseFloat(COSTor);
+var c3 = parseFloat(COSTba);
+var c4 = parseFloat(COSTst);
+var c5 = parseFloat(COSTca);
+
+
+var final = c1 + c2 + c3 + c4 + c5;
+
+var li1 = document.createElement("li");
+li1.appendChild(document.createTextNode("TOTAL:      $"+ final));
+ul.appendChild(li1);
+    
+    }
+    
+</script>
+        
+    </head>
+    <body>
+
+        <div class="section">
+            <table class="tableborder1"><div>
+             <td class="auto-style14">
+                 <label id="Grocery">Vogogo Grocery List! </label>
+                 
+             <td>
+            </table>    
+            </div>
+            <div class="section">
+            <table class="tableborder2">
+                <tr>
+              <td class="auto-style17">
+                   <img src="Images01/apple.jpg" alt="Smiley face" height="60" width="60">
+                    </td>
+                    <td class="auto-style16"> 
+                        <a href="#" onclick="BuyApple()">                           
+                            <img src="Images01/cart.png" alt="Smiley face" height="60" width="60">                                  
+                        </a>
+                    </td>
+                    <td class="auto-style16">
+                       <a href="#" onclick="RuleApple()">                           
+                            <img src="Images01/dollar.jpg" alt="Smiley face" height="60" width="60">                                    
+                        </a>
+                    </td>
+                </tr>
+                <tr> <td class="auto-style17">
+                   <img src="Images01/orange.jpg" alt="Smiley face" height="60" width="60">
+
+                    </td>
+                    <td class="auto-style16">
+                        <a href="#" onclick="BuyOrange()">                           
+                            <img src="Images01/cart.png" alt="Smiley face" height="60" width="60">                                    
+                        </a>
+                    </td>
+                    <td class="auto-style16">
+                       <a href="#" onclick="RuleOrange()">                           
+                            <img src="Images01/dollar.jpg" alt="Smiley face" height="60" width="60">                                    
+                        </a>
+                    </td>
+                    
+                </tr>
+                <tr> <td class="auto-style17">
+                      <img src="Images01/banana.jpg" alt="Smiley face" height="60" width="60">  
+                    </td>
+                    <td class="auto-style16">
+                        <a href="#" onclick="BuyBanana()">                          
+                            <img src="Images01/cart.png" alt="Smiley face" height="60" width="60">                                    
+                        </a>
+                    </td>
+                <td class="auto-style16">
+                       <a href="#" onclick="RuleBanana()">                           
+                            <img src="Images01/dollar.jpg" alt="Smiley face" height="60" width="60">                                    
+                        </a>
+                    </td></tr>
+                 <tr> <td class="auto-style17">
+                      <img src="Images01/strawberry.jpg" alt="Smiley face" height="60" width="60">  
+                    </td>
+                    <td class="auto-style16">
+                        <a href="#" onclick="BuyStrawberry()">                           
+                            <img src="Images01/cart.png" alt="Smiley face" height="60" width="60">                                    
+                        </a>
+                    </td>
+                 <td class="auto-style16">
+                       <a href="#" onclick ="RuleStrawberry()">                           
+                            <img src="Images01/dollar.jpg" alt="Smiley face" height="60" width="60">                                    
+                        </a>
+                    </td></tr>
+                  <tr> <td class="auto-style17">
+                      <img src="Images01/carrot.jpg" alt="Smiley face" height="60" width="60">  
+                    </td>
+                    <td class="auto-style16">
+                        <a href="#" onclick="BuyCarrot()">                           
+                            <img src="Images01/cart.png" alt="Smiley face" height="60" width="60">                                   
+                        </a>
+                    </td>
+                  <td class="auto-style16">
+                       <a href="#" onclick ="RuleCarrot()">                           
+                            <img src="Images01/dollar.jpg" alt="Smiley face" height="60" width="60">                                    
+                        </a>
+                    </td></br>
+                  </tr>
+                      
+                      <td align="center" width="750px">
+                    <a href="#">                          
+                            <img src="Images01/note.png" alt="Smiley face" height="60" width="60">                                    
+                        </a>
+                
+                <ul id ="Lister">
+                    
+                    
+                </ul>
+                    </td>
+                  </tr>
+            </table>
+            <table class="tableborder3">
+                
+                <td class ="auto-style14">
+                    <a href="#" onclick="ComputeTotal()">                          
+                            <img src="Images01/checkout.png" alt="Smiley face" height="60" width="60">                                    
+                        </a>
+                
+                <ul id ="Reciept">
+                    
+                    
+                </ul>
+                    </td>
+            </table>
+
+                             
+        </div>
+        
+                        
+ <div id="BuyApple" class="my_popup">
+    
+                  <tr> <td class ="auto-style14">
+                          <label id ="Grocery1">  Please Enter Quantity of </label></br></br>
+                      
+                  
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="auto-style144">
+                        <a href="#">                           
+                           <img src="Images01/apple.jpg" id="texter" alt="Smiley face" height="60" width="60" >                                 
+                        </a>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        
+                        <input type="text" id ="Apples" maxlength ="2">
+                    </td>
+                  </tr>
+                  <tr>
+                       <td id ="SubmitButton" class="auto-style17"> 
+                       <a href="#" onclick="SetAPP()">                           
+                          <img src="Images01/cart.png" alt="Smiley face" height="60" width="60">                                  
+                        </a>
+                    </td>
+                  </tr>
+                      <td> 
+  </div>
+                  <div id="BuyStrawberry" class="my_popup">
+    
+                  <tr> <td class ="auto-style14">
+                          <label id ="Grocery1">  Please Enter Quantity of </label></br></br>
+                      
+                  
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="auto-style144">
+                        <a href="#">                           
+                           <img src="Images01/strawberry.jpg" id="texter" alt="Smiley face" height="60" width="60" >                                 
+                        </a>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        
+                        <input type="text" id ="Strawberrys" maxlength ="2">
+                    </td>
+                  </tr>
+                  <tr>
+                       <td id ="SubmitButton" class="auto-style17"> 
+                       <a href="#" onclick="SetSTR()">                           
+                          <img src="Images01/cart.png" alt="Smiley face" height="60" width="60">                                  
+                        </a>
+                    </td>
+                  </tr>
+                      <td> 
+  </div>
+                  <div id="BuyCarrot" class="my_popup">
+    
+                  <tr> <td class ="auto-style14">
+                          <label id ="Grocery1">  Please Enter Quantity of </label></br></br>
+                      
+                  
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="auto-style144">
+                        <a href="#">                           
+                           <img src="Images01/carrot.jpg" id="texter" alt="Smiley face" height="60" width="60" >                                 
+                        </a>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        
+                        <input type="text" id ="Carrots" maxlength ="2">
+                    </td>
+                  </tr>
+                  <tr>
+                       <td id ="SubmitButton" class="auto-style17"> 
+                       <a href="#" onclick="SetCAR()">                           
+                          <img src="Images01/cart.png" alt="Smiley face" height="60" width="60">                                  
+                        </a>
+                    </td>
+                  </tr>
+                      <td> 
+  </div>
+                  <div id="BuyOrange" class="my_popup">
+    
+                  <tr> <td class ="auto-style14">
+                          <label id ="Grocery1">  Please Enter Quantity of </label></br></br>
+                      
+                  
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="auto-style144">
+                        <a href="#">                           
+                           <img src="Images01/orange.jpg" id="texter" alt="Smiley face" height="60" width="60" >                                 
+                        </a>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        
+                        <input type="text" id ="Oranges" maxlength ="2">
+                    </td>
+                  </tr>
+                  <tr>
+                       <td id ="SubmitButton" class="auto-style17"> 
+                       <a href="#" onclick="SetORA()">                           
+                          <img src="Images01/cart.png" alt="Smiley face" height="60" width="60">                                  
+                        </a>
+                    </td>
+                  </tr>
+                      <td> 
+  </div>
+                  <div id="BuyBanana" class="my_popup">
+    
+                  <tr> <td class ="auto-style14">
+                          <label id ="Grocery1">  Please Enter Quantity of </label></br></br>
+                      
+                  
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="auto-style144">
+                        <a href="#">                           
+                           <img src="Images01/banana.jpg" id="texter" alt="Smiley face" height="60" width="60" >                                 
+                        </a>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        
+                        <input type="text" id ="Bananas" maxlength ="2">
+                    </td>
+                  </tr>
+                  <tr>
+                       <td id ="SubmitButton" class="auto-style17"> 
+                       <a href="#" onclick="SetBAN()">                           
+                          <img src="Images01/cart.png" alt="Smiley face" height="60" width="60">                                  
+                        </a>
+                    </td>
+                  </tr>
+                      <td> 
+  </div>
+                
+                 <div id="SetApple" class="my_popup">
+    
+                  <tr> <td>
+                          <label id ="Grocery1">  Set Rules For: </label> </br></br></br></br>
+                      </td>
+                  
+                    </td>
+                    <td class="auto-style16">
+                        <a href="#">                           
+                          &nbsp;&nbsp;  <img src="Images01/apple.jpg" id="texter" alt="Smiley face" height="60" width="60" align="middle" >                                   
+                        </a>
+                        </br>
+                        </br>
+                        <input type="text" id ="QtyAp" maxlength ="2">&nbsp;&nbsp; for &nbsp;&nbsp; </br><input type="text" id ="PriceAp" maxlength ="5">
+                    </td>
+                  </tr>
+                  <tr>
+                       <td id ="SubmitButton"> 
+                       <a href="#" onclick="RuleAP()">         
+                           </br>
+                           </br>
+                          <img src="Images01/cart.png" alt="Smiley face" height="60" width="60">                                  
+                        </a>
+                    </td>
+                  </tr>
+                      <td> 
+  </div>
+                 <div id="SetOrange" class="my_popup">
+    
+                  <tr> <td>
+                          <label id ="Grocery1">  Set Rules For: </label> </br></br></br></br>
+                      </td>
+                  
+                    </td>
+                    <td class="auto-style16">
+                        <a href="#">                           
+                          &nbsp;&nbsp;  <img src="Images01/orange.jpg" id="texter" alt="Smiley face" height="60" width="60" align="middle" >                                   
+                        </a>
+                        </br>
+                        </br>
+                        <input type="text" id ="QtyOr" maxlength ="2">&nbsp;&nbsp; for &nbsp;&nbsp;</br> <input type="text" id ="PriceOr" maxlength ="5">
+                    </td>
+                  </tr>
+                  <tr>
+                       <td id ="SubmitButton"> 
+                       <a href="#" onclick="RuleOR()">         
+                           </br>
+                           </br>
+                          <img src="Images01/cart.png" alt="Smiley face" height="60" width="60">                                  
+                        </a>
+                    </td>
+                  </tr>
+                      <td> 
+  </div>
+                 <div id="SetBanana" class="my_popup">
+    
+                  <tr> <td>
+                          <label id ="Grocery1">  Set Rules For: </label> </br></br></br></br>
+                      </td>
+                  
+                    </td>
+                    <td class="auto-style16">
+                        <a href="#">                           
+                          &nbsp;&nbsp;  <img src="Images01/banana.jpg" id="texter" alt="Smiley face" height="60" width="60" align="middle" >                                   
+                        </a>
+                        </br>
+                        </br>
+                        <input type="text" id ="QtyBa" maxlength ="2">&nbsp;&nbsp; for &nbsp;&nbsp;</br> <input type="text" id ="PriceBa" maxlength ="5">
+                    </td>
+                  </tr>
+                  <tr>
+                       <td id ="SubmitButton"> 
+                       <a href="#" onclick="RuleBA()">         
+                           </br>
+                           </br>
+                          <img src="Images01/cart.png" alt="Smiley face" height="60" width="60">                                  
+                        </a>
+                    </td>
+                  </tr>
+                      <td> 
+  </div>
+                 <div id="SetStrawberry" class="my_popup">
+    
+                  <tr> <td>
+                          <label id ="Grocery1">  Set Rules For: </label> </br></br></br></br>
+                      </td>
+                  
+                    </td>
+                    <td class="auto-style16">
+                        <a href="#">                           
+                          &nbsp;&nbsp;  <img src="Images01/strawberry.jpg" id="texter" alt="Smiley face" height="60" width="60" align="middle" >                                   
+                        </a>
+                        </br>
+                        </br>
+                        <input type="text" id ="QtySt" maxlength ="2">&nbsp;&nbsp; for &nbsp;&nbsp;</br> <input type="text" id ="PriceSt" maxlength ="5">
+                    </td>
+                  </tr>
+                  <tr>
+                       <td id ="SubmitButton"> 
+                       <a href="#" onclick="RuleST()">         
+                           </br>
+                           </br>
+                          <img src="Images01/cart.png" alt="Smiley face" height="60" width="60">                                  
+                        </a>
+                    </td>
+                  </tr>
+                      <td> 
+  </div>
+                 <div id="SetCarrot" class="my_popup">
+    
+                  <tr> <td>
+                          <label id ="Grocery1">  Set Rules For: </label> </br></br></br></br>
+                      </td>
+                  
+                    </td>
+                    <td class="auto-style16">
+                        <a href="#">                           
+                          &nbsp;&nbsp;  <img src="Images01/carrot.jpg" id="texter" alt="Smiley face" height="60" width="60" align="middle" >                                   
+                        </a>
+                        </br>
+                        </br>
+                        <input type="text" id ="QtyCa" maxlength ="2">&nbsp;&nbsp; for &nbsp;&nbsp;</br> <input type="text" id ="PriceCa" maxlength ="5">
+                    </td>
+                  </tr>
+                  <tr>
+                       <td id ="SubmitButton"> 
+                       <a href="#" onclick="RuleCA()">         
+                           </br>
+                           </br>
+                          <img src="Images01/cart.png" alt="Smiley face" height="60" width="60">                                  
+                        </a>
+                    </td>
+                  </tr>
+                      <td> 
+  </div>
+        
+    </body>
+</html>
+
+
+
+
+
+    
